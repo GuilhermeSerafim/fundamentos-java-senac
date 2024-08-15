@@ -1,0 +1,13 @@
+
+public class Hello {
+
+	// Ctrl + F11 - Executar
+	// Ctrl + Barra de espaço - Assistente de Conteúdo (dicas de comandos)
+	// Shift + Ctrl + F - Formata o código
+	// syso e main
+	public static void main(String[] args) {
+		syso	
+
+	}
+
+}
