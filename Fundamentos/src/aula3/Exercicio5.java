@@ -1,4 +1,5 @@
 // Calcular area e perimetro de um circulo
+package aula3;
 
 import java.util.Scanner;
 

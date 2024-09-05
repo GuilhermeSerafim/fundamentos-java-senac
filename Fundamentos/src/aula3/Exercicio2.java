@@ -1,6 +1,7 @@
 // Crie um algoritmo que receba o nome e o salário de um funcionário.
 // E calcule seu novo salário com aumento de 25%
 // Mostrea frase com o nome, o valor do aumento e o novo salário
+package aula3;
 
 import java.util.Scanner;
 

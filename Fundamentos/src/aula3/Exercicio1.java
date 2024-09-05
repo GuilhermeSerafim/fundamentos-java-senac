@@ -1,3 +1,4 @@
+package aula3;
 import java.util.Scanner;
 
 // Calcule a média ponderada
