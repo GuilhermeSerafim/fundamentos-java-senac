@@ -1,9 +1,0 @@
-
-public class Variaveis {
-	public static void main(String[] args) {
-		int x = 10;
-		double y = 1.1;
-		
-		System.out.println(x + y);
-	}
-}
