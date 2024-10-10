@@ -13,11 +13,11 @@ public class Desafio1 {
 		mes = in.nextInt();
 		System.out.println("Informe o dia de nascimento");
 		dia = in.nextInt();
-		Desafio1 d = new Desafio1();
-		d.ehMaiorIdade(07, 05, 2004);
+		System.out.printf("É maior de idade?%n%b", ehMaiorIdade(ano, mes, dia));
+		in.close();
 	}
 
-	public boolean ehMaiorIdade(int diaNasc, int mesNasc, int anoNasc) {
+	public static boolean ehMaiorIdade(int diaNasc, int mesNasc, int anoNasc) {
 		Calendar calendario = Calendar.getInstance();
 		int diaAtual = calendario.get(Calendar.DAY_OF_MONTH);
 		int mesAtual = calendario.get(Calendar.MONTH) + 1; // Janeiro é 0
