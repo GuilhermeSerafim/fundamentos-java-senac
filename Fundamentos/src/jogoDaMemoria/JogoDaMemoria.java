@@ -5,12 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class JogoDaMemoria {
 	static Scanner scanner = new Scanner(System.in);
@@ -27,6 +24,11 @@ public class JogoDaMemoria {
 	static String[] colors = { BLACK, RED, GREEN, YELLOW, BLUE, PURPLE, CYAN, WHITE };
 
 	public static void main(String[] args) throws Exception {
+		File file = new File("TrilhaSonora.wav");
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioStream);
+		clip.start();
 		limparTela();
 		boolean rodando = true;
 		while (rodando) {
@@ -54,6 +56,18 @@ public class JogoDaMemoria {
 						+ "   \\-__,/    (    ( (\r\n" + "              \\.__,-)\\_\r\n"
 						+ "               )\\_ / -(\r\n" + "              / -(////\r\n" + "             ////");
 				break;
+			case 4:
+				System.out.println("Ligando trilha sonora");
+				clip.start();
+				esperar(2000);
+				limparTela();
+				break;
+			case 5:
+				System.out.println("Desligando trilha sonora");
+				clip.stop();
+				esperar(2000);
+				limparTela();
+				break;
 			default:
 				System.out.println(RED + "Opção inválida! Tente novamente." + RESET);
 				System.out.println("          __\r\n" + "   ???  c(..)o   (\r\n" + "      \\__(-)    __)\r\n"
@@ -77,9 +91,11 @@ public class JogoDaMemoria {
 						+ "                                                                         | |                     \r\n"
 						+ "                                                                         |_|                     ");
 		System.out.println(" --------------------------- ");
-		System.out.println("|1- Iniciar o Jogo          |");
-		System.out.println("|2- Instruções e Regras     |");
-		System.out.println("|3- Sair                    |");
+		System.out.println("|1 - Iniciar o Jogo          |");
+		System.out.println("|2 - Instruções e Regras     |");
+		System.out.println("|3 - Sair                    |");
+		System.out.println("|4 - Ligar trilha sonora     |");
+		System.out.println("|5 - Desligar trilha sonora  |");
 		System.out.println(" --------------------------- ");
 		System.out.println();
 	}
@@ -154,22 +170,7 @@ public class JogoDaMemoria {
 		String[] palavras = { "ABACATE", "ABACAXI", "ABÓBORA", "ACEROLA", "ALFACE", "ALHO", "AMEIXA", "AMENDOIM",
 				"ARROZ", "AZEITONA", "BANANA", "BATATA", "BERINJELA", "BETERRABA", "BRÓCOLIS", "CAJU", "CEBOLA",
 				"CENOURA", "CHUCHU", "COCO", "COUVE", "CRAVO", "ERVILHA", "ESPINAFRE", "FIGO", "GOIABA", "HORTELÃ",
-				"INHAME", "JABUTICABA", "JACA", "JILÓ", "KIWI", "LARANJA", "LIMÃO", "MAMÃO", "MANDIOCA",
-				"MANGA", "MANJERICÃO", "MARACUJÁ", "MELANCIA", "MELÃO", "MILHO", "MORANGO", "NABO", "NÊSPERA",
-				"ORÉGANO", "PALMITO", "PÃO", "PEPINO", "PERA", "PÊSSEGO", "PIMENTA", "PINHÃO", "QUIABO", "RABANETE",
-				"REPOLHO", "SALSA", "SALSÃO", "TOMATE", "TRIGO", "UVA", "VAGEM", "AGRIÃO", "ALECRIM", "CAMOMILA",
-				"CEBOLINHA", "COENTRO", "COUVE-FLOR", "ESCAROLA", "FEIJÃO", "LENTILHA", "MANJERONA", "MARISCO",
-				"MEXERICA", "NORI", "OSTRA", "PASSA", "POLVILHO", "PROVOLONE", "QUEIJO", "RÚCULA", "SABUGO", "SAL",
-				"SALSICHA", "SELETA", "SOJA", "SORVETE", "TAPIOCA", "TÂMARA", "TOFU", "TORANJA", "TRUTA", "TUCUMÃ",
-				"UMBU", "VINHO", "YAKISOBA", "ZIMBRO", "ZUCHINI", "ALCACHOFRA", "ALMEIRÃO", "AVELÃ", "AÇAÍ", "BABOSA",
-				"BACURI", "BARU", "BIQUINHO", "BURITI", "CAQUI", "CARÁ", "CEVADA", "CEREJA", "CIDREIRA", "CURAU",
-				"DAMASCO", "ENDRO", "ESCAROLA", "FAVA", "FUNCHO", "GERGELIM", "GRAVIOLA", "GUARANÁ", "JAMBU", "JATOBÁ",
-				"LENTILHA", "LOURO", "MALVA", "MARAPUAMA", "MELAÇO", "MURICI", "NOZ", "PEQUI", "PINHÃO-MANSO",
-				"PISTACHE", "PITANGA", "PITAYA", "PUPUNHA", "RABANADA", "RAMI", "SAGU", "SERIGUELA", "TAMARA", "TEFF",
-				"URUCUM", "ABACATE", "ABACAXI", "ABÓBORA", "ACEROLA", "ALFACE", "ALHO", "AMEIXA", "AMENDOIM", "ARROZ",
-				"AZEITONA", "BANANA", "BATATA", "BERINJELA", "BETERRABA", "BRÓCOLIS", "CAJU", "CEBOLA", "CENOURA",
-				"CHUCHU", "COCO", "COUVE", "CRAVO", "ERVILHA", "ESPINAFRE", "FIGO", "GOIABA", "HORTELÃ", "INHAME",
-				"JABUTICABA", "JACA", "JILÓ", "KIWI", "LARANJA", "LIMÃO", "MAÇÃ", "MAMÃO", "MANDIOCA", "MANGA",
+				"INHAME", "JABUTICABA", "JACA", "JILÓ", "KIWI", "LARANJA", "LIMÃO", "MAMÃO", "MANDIOCA", "MANGA",
 				"MANJERICÃO", "MARACUJÁ", "MELANCIA", "MELÃO", "MILHO", "MORANGO", "NABO", "NÊSPERA", "ORÉGANO",
 				"PALMITO", "PÃO", "PEPINO", "PERA", "PÊSSEGO", "PIMENTA", "PINHÃO", "QUIABO", "RABANETE", "REPOLHO",
 				"SALSA", "SALSÃO", "TOMATE", "TRIGO", "UVA", "VAGEM", "AGRIÃO", "ALECRIM", "CAMOMILA", "CEBOLINHA",
@@ -177,11 +178,25 @@ public class JogoDaMemoria {
 				"OSTRA", "PASSA", "POLVILHO", "PROVOLONE", "QUEIJO", "RÚCULA", "SABUGO", "SAL", "SALSICHA", "SELETA",
 				"SOJA", "SORVETE", "TAPIOCA", "TÂMARA", "TOFU", "TORANJA", "TRUTA", "TUCUMÃ", "UMBU", "VINHO",
 				"YAKISOBA", "ZIMBRO", "ZUCHINI", "ALCACHOFRA", "ALMEIRÃO", "AVELÃ", "AÇAÍ", "BABOSA", "BACURI", "BARU",
-				"BIQUINHO", "BURITI", "CAQUI", "CARÁ", "CEVADA", "CEREJA", "CIDREIRA", "CUPUAÇU", "CURAU", "DAMASCO",
-				"ENDRO", "ESCAROLA", "FAVA", "FUNCHO", "GERGELIM", "GRAVIOLA", "GUARANÁ", "JAMBU", "JATOBÁ", "LENTILHA",
-				"LINHAÇA", "LOURO", "MALVA", "MARAPUAMA", "MELAÇO", "MURICI", "NOZ", "PEQUI", "PINHÃO-MANSO",
-				"PISTACHE", "PITANGA", "PITAYA", "PUPUNHA", "RABANADA", "RAMI", "SAGU", "SERIGUELA", "TAMARA", "TEFF",
-				"URUCUM" };
+				"BIQUINHO", "BURITI", "CAQUI", "CARÁ", "CEVADA", "CEREJA", "CIDREIRA", "CURAU", "DAMASCO", "ENDRO",
+				"ESCAROLA", "FAVA", "FUNCHO", "GERGELIM", "GRAVIOLA", "GUARANÁ", "JAMBU", "JATOBÁ", "LENTILHA", "LOURO",
+				"MALVA", "MARAPUAMA", "MELAÇO", "MURICI", "NOZ", "PEQUI", "PINHÃO-MANSO", "PISTACHE", "PITANGA",
+				"PITAYA", "PUPUNHA", "RABANADA", "RAMI", "SAGU", "SERIGUELA", "TAMARA", "TEFF", "URUCUM", "ABACATE",
+				"ABACAXI", "ABÓBORA", "ACEROLA", "ALFACE", "ALHO", "AMEIXA", "AMENDOIM", "ARROZ", "AZEITONA", "BANANA",
+				"BATATA", "BERINJELA", "BETERRABA", "BRÓCOLIS", "CAJU", "CEBOLA", "CENOURA", "CHUCHU", "COCO", "COUVE",
+				"CRAVO", "ERVILHA", "ESPINAFRE", "FIGO", "GOIABA", "HORTELÃ", "INHAME", "JABUTICABA", "JACA", "JILÓ",
+				"KIWI", "LARANJA", "LIMÃO", "MAÇÃ", "MAMÃO", "MANDIOCA", "MANGA", "MANJERICÃO", "MARACUJÁ", "MELANCIA",
+				"MELÃO", "MILHO", "MORANGO", "NABO", "NÊSPERA", "ORÉGANO", "PALMITO", "PÃO", "PEPINO", "PERA",
+				"PÊSSEGO", "PIMENTA", "PINHÃO", "QUIABO", "RABANETE", "REPOLHO", "SALSA", "SALSÃO", "TOMATE", "TRIGO",
+				"UVA", "VAGEM", "AGRIÃO", "ALECRIM", "CAMOMILA", "CEBOLINHA", "COENTRO", "COUVE-FLOR", "ESCAROLA",
+				"FEIJÃO", "LENTILHA", "MANJERONA", "MARISCO", "MEXERICA", "NORI", "OSTRA", "PASSA", "POLVILHO",
+				"PROVOLONE", "QUEIJO", "RÚCULA", "SABUGO", "SAL", "SALSICHA", "SELETA", "SOJA", "SORVETE", "TAPIOCA",
+				"TÂMARA", "TOFU", "TORANJA", "TRUTA", "TUCUMÃ", "UMBU", "VINHO", "YAKISOBA", "ZIMBRO", "ZUCHINI",
+				"ALCACHOFRA", "ALMEIRÃO", "AVELÃ", "AÇAÍ", "BABOSA", "BACURI", "BARU", "BIQUINHO", "BURITI", "CAQUI",
+				"CARÁ", "CEVADA", "CEREJA", "CIDREIRA", "CUPUAÇU", "CURAU", "DAMASCO", "ENDRO", "ESCAROLA", "FAVA",
+				"FUNCHO", "GERGELIM", "GRAVIOLA", "GUARANÁ", "JAMBU", "JATOBÁ", "LENTILHA", "LINHAÇA", "LOURO", "MALVA",
+				"MARAPUAMA", "MELAÇO", "MURICI", "NOZ", "PEQUI", "PINHÃO-MANSO", "PISTACHE", "PITANGA", "PITAYA",
+				"PUPUNHA", "RABANADA", "RAMI", "SAGU", "SERIGUELA", "TAMARA", "TEFF", "URUCUM" };
 
 		int pontuacao = 0;
 		int tempoEspera = 3000;
@@ -245,26 +260,15 @@ public class JogoDaMemoria {
 
 		if (pontuacao == limitePalavras) {
 			System.out.println(YELLOW + "\nParabéns! Você completou o nível com sucesso!");
-			System.out.println("_______AAAA____G_U_I_____AAAA_______\r\n"
-					+ "       VVVV               VVVV        \r\n"
-					+ "       (__)               (__)\r\n"
-					+ "        \\ \\               / /\r\n"
-					+ "         \\ \\   \\\\|||//   / /\r\n"
-					+ "          > \\   _   _   / <\r\n"
-					+ " VOCÊ      > \\ / \\ / \\ / <\r\n"
-					+ " É O        > \\\\_o_o_// <\r\n"
-					+ " GUARDIÃO DA > ( (_) ) <\r\n"
-					+ " MEMORIA      >|     |<\r\n"
-					+ "             / |\\___/| \\\r\n"
-					+ "             / (_____) \\\r\n"
-					+ "             /         \\\r\n"
-					+ "              /   o   \\\r\n"
-					+ "               ) ___ (   \r\n"
-					+ "              / /   \\ \\  \r\n"
-					+ "             ( /     \\ )\r\n"
-					+ "             ><       ><\r\n"
-					+ "            ///\\     /\\\\\\\r\n"
-					+ "            '''       '''");
+			System.out.println("_______AAAA____G_U_I_____AAAA_______\r\n" + "       VVVV               VVVV        \r\n"
+					+ "       (__)               (__)\r\n" + "        \\ \\               / /\r\n"
+					+ "         \\ \\   \\\\|||//   / /\r\n" + "          > \\   _   _   / <\r\n"
+					+ " VOCÊ      > \\ / \\ / \\ / <\r\n" + " É O        > \\\\_o_o_// <\r\n"
+					+ " GUARDIÃO DA > ( (_) ) <\r\n" + " MEMORIA      >|     |<\r\n" + "             / |\\___/| \\\r\n"
+					+ "             / (_____) \\\r\n" + "             /         \\\r\n" + "              /   o   \\\r\n"
+					+ "               ) ___ (   \r\n" + "              / /   \\ \\  \r\n"
+					+ "             ( /     \\ )\r\n" + "             ><       ><\r\n"
+					+ "            ///\\     /\\\\\\\r\n" + "            '''       '''");
 			System.out.println(RESET);
 			System.out.println("\n<< Pressione 'ENTER' para voltar ao menu >>>\n");
 			scanner.nextLine();
@@ -301,5 +305,4 @@ public class JogoDaMemoria {
 			e.printStackTrace();
 		}
 	}
-
 }
